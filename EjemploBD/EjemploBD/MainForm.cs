@@ -36,15 +36,38 @@ namespace EjemploBD
 			
 		}
 		
-		public void CargarUsuario()
+		public void CargarUsuario() // Concentramos en una función tipo void (es decir, en una orden) los pasos a seguir para cargar los usuarios de la base de datos y traerlos al disco duro.
 		{
-			try // Intentar hacer esto.
+			try // INTENTA hacer esto.
 			{
-				// Paso 2. Creamos conexión (la conexión solo existe dentro del using)
+				// Paso 2. Creamos conexión. La conexión solo existe dentro del using para un menor consumo de RAM, para que el servidor de base de datos no se sature de conexiones olvidadas (que no han sido cerradas manualmente). Llave que abre, llave que cierra; conexión que se abre, conexión que se cierra. Así el sistema responde a nuevo usuarios. 
 				
 				using (MySqlConnection conexion = new MySqlConnection(cadenaConexión)) // Gracias al using MySql.Data.MySqlClient, llamamos a la clase MySqlConnection, instanciamos un objeto llamado "conexión" cuyos parametros es la cadena de texto que creamos arriba. Esos parámetros irán a su propio constructor para saber a qué servidor se conectará. 
 				{
+					// Paso 3. Esta es la plantilla de lo que le vamos a pedir a MySQL para el momento de traer la base de datos de usuario.
 					
+					string consulta = "SELECT id, nombre, clave, rol from usuario";
+					
+					conexion.Open(); // Paso 4. Abrimos la conexión. Usamos el objeto creado para llamar a un método cuya acción es abrir la conexión. El programa envía la cadena de texto creada anteriormente al servidor, verifica si son correctos para la base de datos peducativa. Si todo está bien, establece una conexión abierta. A partir de aquí, ya está listo para enviar y recibir datos.
+					
+					// Paso 5. Instanciamos un objeto de la clase MySqlDataAdaptater llamado "adaptador". Este objeto es el mediador entre MySqL y C#. Es el traductor que entiende ambos mundos. Los parametros ingresados indica primero qué es lo que quiere extraer (consulta) y por donde debe buscar lo que quiere (conexion). Esos parámetros viajan al constructor de esa clase.
+				  
+					MySqlDataAdapter adaptador = new MySqlDataAdapter(consulta, conexion);
+					
+					// Paso 6. Creamos un objeto de tipo tabla en memoria (vacía por los momentos. Aquí llenaremos los datos que llegará del objeto "adaptador". Tiene filas, columnas, y restricciones.
+					
+					DataTable tabla = new DataTable(); 
+					
+					
+					// Paso 7. 
+					
+					adaptador.Fill(tabla) // Llamamos al adaptador (el objeto que viene con los datos), su método Fill (que es llenar) y le decimos en dónde se llenará (la tabla).
+						
+					// Paso 8.
+						
+					dgvUsuarios.DataSource = tabla; // Llamamos al DataGridView de usuarios y le indicamos qué mostará el contenido del objeto tabla.
+					
+					lblEstado.Tet = string.Format("Cargados {0} usuarios.",tabla.Rows.Count)
 				}
 				
 			}
