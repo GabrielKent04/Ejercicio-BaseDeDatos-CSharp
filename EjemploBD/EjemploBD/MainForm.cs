@@ -33,6 +33,7 @@ namespace EjemploBD
 		{
 			
 			InitializeComponent();
+			CargarUsuario();
 			
 		}
 		
@@ -58,19 +59,36 @@ namespace EjemploBD
 					
 					DataTable tabla = new DataTable(); 
 					
-					
 					// Paso 7. 
 					
-					adaptador.Fill(tabla) // Llamamos al adaptador (el objeto que viene con los datos), su método Fill (que es llenar) y le decimos en dónde se llenará (la tabla).
+					adaptador.Fill(tabla); // Llamamos al adaptador (el objeto que viene con los datos), su método Fill (que es llenar) y le decimos en dónde se llenará (la tabla).
 						
 					// Paso 8.
 						
-					dgvUsuarios.DataSource = tabla; // Llamamos al DataGridView de usuarios y le indicamos qué mostará el contenido del objeto tabla.
+					dgvUsuarios.DataSource = tabla; // Llamamos al DataGridView de usuarios y le indicamos que mostrará el contenido del objeto tabla.
 					
-					lblEstado.Tet = string.Format("Cargados {0} usuarios.",tabla.Rows.Count)
+					//lblEstado.Tet = string.Format("Cargados {0} usuarios.",tabla.Rows.Count)
 				}
 				
 			}
+			catch (Exception ex) // Si no  se puede intentar lo de arriba, HAZ ESTO.
+			{
+				MessageBox.Show(string.Format("No se pudo realizar conexión  por: {0}",ex.Message)); // Indicamos el error que impidió hacer lo de arriba. El error se indica llamando al objeto ex y su método "message", para ver información.
+				                             
+			}
+		}
+		
+		void BtnAgregarClick(object sender, EventArgs e)
+		{
+			cmbRol fmrnuevo = new cmbRol(); // Instanciamos un objeto de la ventana de añadir usuarios.
+			
+			if(fmrnuevo.ShowDialog() == DialogResult.OK)
+			{
+				
+				CargarUsuario();
+				
+			}
+
 		}
 	}
 }
