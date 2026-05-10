@@ -80,5 +80,15 @@ namespace EjemploBD
 		{
 			
 		}
+		
+		void Label5Click(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void Button1Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 	}
 }

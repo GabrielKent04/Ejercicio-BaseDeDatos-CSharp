@@ -49,7 +49,7 @@ namespace EjemploBD
 			// 
 			// txtNombre
 			// 
-			this.txtNombre.Location = new System.Drawing.Point(13, 83);
+			this.txtNombre.Location = new System.Drawing.Point(14, 97);
 			this.txtNombre.Name = "txtNombre";
 			this.txtNombre.Size = new System.Drawing.Size(213, 20);
 			this.txtNombre.TabIndex = 0;
@@ -61,7 +61,7 @@ namespace EjemploBD
 			this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
 			this.label1.Location = new System.Drawing.Point(-58, 9);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(360, 36);
+			this.label1.Size = new System.Drawing.Size(361, 34);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Registro";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -74,7 +74,7 @@ namespace EjemploBD
 			this.comboBox1.Items.AddRange(new object[] {
 									"Admin",
 									"Jugador"});
-			this.comboBox1.Location = new System.Drawing.Point(14, 221);
+			this.comboBox1.Location = new System.Drawing.Point(15, 240);
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(213, 21);
 			this.comboBox1.TabIndex = 3;
@@ -83,7 +83,7 @@ namespace EjemploBD
 			// 
 			this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-			this.label2.Location = new System.Drawing.Point(9, 56);
+			this.label2.Location = new System.Drawing.Point(12, 70);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(101, 22);
 			this.label2.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace EjemploBD
 			// 
 			this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-			this.label4.Location = new System.Drawing.Point(11, 126);
+			this.label4.Location = new System.Drawing.Point(12, 139);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(101, 26);
 			this.label4.TabIndex = 7;
@@ -101,7 +101,7 @@ namespace EjemploBD
 			// 
 			// txtClave
 			// 
-			this.txtClave.Location = new System.Drawing.Point(14, 155);
+			this.txtClave.Location = new System.Drawing.Point(15, 168);
 			this.txtClave.Name = "txtClave";
 			this.txtClave.Size = new System.Drawing.Size(213, 20);
 			this.txtClave.TabIndex = 6;
@@ -110,11 +110,12 @@ namespace EjemploBD
 			// 
 			this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-			this.label5.Location = new System.Drawing.Point(13, 193);
+			this.label5.Location = new System.Drawing.Point(14, 212);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(101, 26);
 			this.label5.TabIndex = 8;
 			this.label5.Text = "Rol";
+			this.label5.Click += new System.EventHandler(this.Label5Click);
 			// 
 			// BtnAgregar
 			// 
@@ -148,13 +149,14 @@ namespace EjemploBD
 			this.button1.TabIndex = 10;
 			this.button1.Text = "Cancelar";
 			this.button1.UseVisualStyleBackColor = false;
+			this.button1.Click += new System.EventHandler(this.Button1Click);
 			// 
 			// cmbRol
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-			this.ClientSize = new System.Drawing.Size(243, 402);
+			this.ClientSize = new System.Drawing.Size(243, 369);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.BtnAgregar);
 			this.Controls.Add(this.label5);

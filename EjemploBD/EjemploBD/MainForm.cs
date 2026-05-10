@@ -90,5 +90,47 @@ namespace EjemploBD
 			}
 
 		}
+		
+		void BtnEliminarClick(object sender, EventArgs e)
+		{
+			string consulta = "DELETE from usuario WHERE id = @id"; // Guardamos el orden específico del botón en una variable de tipo string. 
+			int idUsuario = Convert.ToInt32(dgvUsuarios.CurrentRow.Cells["id"].Value); // Guardamos el id ÚNICO del usuario. Especificamos el dgv,luego llamamos al método que indica
+			string nombre = dgvUsuarios.CurrentRow.Cells["nombre"].Value.ToString();
+			 
+			DialogResult advertencia = MessageBox.Show(string.Format("¿Está seguro de eliminar al usuario '{0}'?",nombre),"Confirmar",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+			if(dgvUsuarios.CurrentRow == null)
+			{
+				MessageBox.Show("Debe seleccionar a un usuario");
+			}
+			if(advertencia == DialogResult.Yes)
+			{
+             			
+			try
+			{
+				using(MySqlConnection conexion = new MySqlConnection(cadenaConexión))
+					using (MySqlCommand orden = new MySqlCommand(consulta,conexion))
+				             {
+				             	
+				       	 orden.Parameters.AddWithValue("@id", idUsuario);
+				       	 
+				       	 conexion.Open(); // Paso 5. Abrimos la conexión para ejecutar la orden.
+				       	 	orden.ExecuteNonQuery(); // Paso 6. Ejecutamos la orden.
+				       	 	CargarUsuario();
+				             }
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error al eliminar: {0}",ex.Message);
+				               
+				
+			}
+		}
+		
 	}
+		
+		void BtnEditarClick(object sender, EventArgs e)
+		{
+			
+		}
 }
+	}
