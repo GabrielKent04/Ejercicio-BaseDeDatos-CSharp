@@ -29,11 +29,6 @@ namespace EjemploBD
 			
 		}
 		
-		void Label3Click(object sender, EventArgs e)
-		{
-			
-		}
-		
 		void BtnAgregarClick(object sender, EventArgs e)
 		{
 			if(string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtClave.Text) || string.IsNullOrWhiteSpace(comboBox1.Text))
@@ -71,20 +66,6 @@ namespace EjemploBD
 			}
 		}
 		
-		void Label1Click(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void CmbRolLoad(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void Label5Click(object sender, EventArgs e)
-		{
-			
-		}
 		
 		void Button1Click(object sender, EventArgs e)
 		{

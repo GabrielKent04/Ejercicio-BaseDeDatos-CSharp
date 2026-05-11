@@ -26,7 +26,6 @@ namespace EjemploBD
 		// b. Database=peducativa: indica el nombre de nuestra base de datos registrada en phpMyAdmin. Debe ser el nombre EXACTO.
 		// c. uid=root. UID significa Identificador Único. Por defecto, XAMPP crea un superusuario llamado root, el cual tiene permiso para hacer todo.
 		// d. Pwd=;. Es el password (contraseña). Por defecto, el usuario root no tiene contraseña; por eso se deja vacío.
-		
 		private string cadenaConexión = "Server=localhost;Database=peducativa;Uid=root;Pwd=;";
 		
 		public MainForm()
@@ -93,15 +92,18 @@ namespace EjemploBD
 		
 		void BtnEliminarClick(object sender, EventArgs e)
 		{
+			 if(dgvUsuarios.CurrentRow == null)
+			{
+				MessageBox.Show("Por favor, selecciona un usuario de la lista.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			 
 			string consulta = "DELETE from usuario WHERE id = @id"; // Guardamos el orden específico del botón en una variable de tipo string. 
 			int idUsuario = Convert.ToInt32(dgvUsuarios.CurrentRow.Cells["id"].Value); // Guardamos el id ÚNICO del usuario. Especificamos el dgv,luego llamamos al método que indica
 			string nombre = dgvUsuarios.CurrentRow.Cells["nombre"].Value.ToString();
-			 
+			
 			DialogResult advertencia = MessageBox.Show(string.Format("¿Está seguro de eliminar al usuario '{0}'?",nombre),"Confirmar",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-			if(dgvUsuarios.CurrentRow == null)
-			{
-				MessageBox.Show("Debe seleccionar a un usuario");
-			}
+			
 			if(advertencia == DialogResult.Yes)
 			{
              			
@@ -130,7 +132,95 @@ namespace EjemploBD
 		
 		void BtnEditarClick(object sender, EventArgs e)
 		{
+			 if(dgvUsuarios.CurrentRow == null)
+			{
+				MessageBox.Show("Por favor, selecciona un usuario de la lista.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			 // Si no seleccionó ninguna celda, no hará nada; vuelve al inicio.
+			
+			EditarUsuario editar = new EditarUsuario();
+			
+			editar.txtNombre.Text = dgvUsuarios.CurrentRow.Cells["nombre"].Value.ToString();
+			editar.txtClave.Text = dgvUsuarios.CurrentRow.Cells["clave"].Value.ToString();
+			editar.cmbRol.Text = dgvUsuarios.CurrentRow.Cells["rol"].Value.ToString();
+			editar.idSeleccionado = Convert.ToInt32(dgvUsuarios.CurrentRow.Cells["id"].Value);
+			
+			if(editar.ShowDialog() == DialogResult.OK)
+			{
+				CargarUsuario();
+			}
+		
+		}
+		
+		// Programación de eventos para la caja de texto donde se buscan usuarios. 
+		
+		void TextBox1Enter(object sender, EventArgs e) // Si el texto es igual a ese, se vacía y el color de texto pasa a ser negro para escribir.
+		{
+			if(textBox1.Text == "Ingrese el nombre del usuario para eliminar o editar.")
+			{
+				textBox1.Text = "";
+				textBox1.ForeColor = Color.Black;
+				
+			}
+		}
+		
+		void TextBox1Leave(object sender, EventArgs e)
+		{
+			if(textBox1.Text == "")
+			{
+				textBox1.Text = "Ingrese el nombre del usuario para eliminar o editar."; // Si el texto está vacío, vuelve a aparecer la indicación junto a su color que sugiere que es eso, una indicación.
+				textBox1.ForeColor = Color.Gray;
+				
+			}
+		}
+		
+		
+		void TextBox1TextChanged(object sender, EventArgs e)
+		{
+			if(textBox1.Text == "Ingrese el nombre del usuario para eliminar o editar.")
+			{
+			CargarUsuario();
+			return;
+			}
+		
+			   	string filtro = "%" + textBox1.Text + "%"; // Guardamos lo que el usuario quiere buscar.
+			   	string consulta = "SELECT * FROM usuario WHERE nombre LIKE @filtro"; // Indicamos que queremos seleccionar todo de la tabla 'usuario' si existe tal nombre en la columna nombre.
+			   	
+			   	using(MySqlConnection conexion = new MySqlConnection(cadenaConexión))
+			   		using (MySqlCommand orden = new MySqlCommand(consulta,conexion))
+			   	{
+			   		orden.Parameters.AddWithValue("@filtro", filtro);
+			   		
+			   		MySqlDataAdapter adaptador = new MySqlDataAdapter(orden);
+			   		DataTable resultados = new DataTable();
+			   		adaptador.Fill(resultados);
+			   		dgvUsuarios.DataSource = resultados;
+			   		
+			   		
+			   	}
+			   	
+		}
+		
+		
+		void ContextMenuStrip1Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		{
 			
 		}
-}
+		
+		void EditarToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			BtnEditarClick(sender, e);
+		}
+		
+		void EliminarToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			BtnEliminarClick(sender, e);
+		}
+		
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			
+		}
+} 
 	}
